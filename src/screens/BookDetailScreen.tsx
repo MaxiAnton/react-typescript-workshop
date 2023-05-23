@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { bookSelector } from "../store/books";
 import {useEffect, useState} from "react";
 import {fetchBook} from "../domain/book/api";
 import {Book} from "../domain/book/Book";
