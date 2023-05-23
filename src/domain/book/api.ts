@@ -1,20 +1,20 @@
 import { Book } from "./Book";
 
 export const fetchBooks = () => {
-  return fetch(`${process.env.REACT_APP_URL_API}/books`).then((res) =>
+  return fetch(`${process.env.REACT_APP_URL_API}/book`).then((res) =>
     res.json()
   ) as Promise<Book[]>;
 };
 
 export const fetchBook = (isbn: string) => {
-  const result = fetch(`http://localhost:4730/books/${isbn}`).then((res) =>
+  const result = fetch(`${process.env.REACT_APP_URL_API}/book/${isbn}`).then((res) =>
     res.json()
   );
   return result as Promise<Book>;
 };
 
 export const updateBook = (book: Book) => {
-  return fetch(`http://localhost:4730/books/${book.isbn}`, {
+  return fetch(`${process.env.REACT_APP_URL_API}/book/${book.isbn}`, {
     method: "put",
     body: JSON.stringify(book),
     headers: {

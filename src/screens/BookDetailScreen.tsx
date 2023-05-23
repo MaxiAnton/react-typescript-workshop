@@ -1,20 +1,23 @@
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { bookSelector } from "../store/books";
+import {useEffect, useState} from "react";
+import {fetchBook} from "../domain/book/api";
+import {Book} from "../domain/book/Book";
 
 export const BookDetailScreen = () => {
   const { isbn } = useParams<{ isbn: string }>();
 
   // Possibility 1: fetch books and store books in local React state
-  // const [book, setBook] = useState<Book>();
+  const [book, setBook] = useState<Book>();
 
-  // useEffect(() => {
-  //   if (!isbn) return;
-  //   fetchBook(isbn).then(setBook);
-  // }, [isbn]);
+  useEffect(() => {
+    if (!isbn) return;
+    fetchBook(isbn).then(setBook);
+  }, [isbn]);
 
   // Possibility 2 (via Redux): retrieve book from Redux store (Bonus task)
-  const book = useSelector(bookSelector(isbn));
+  // const book = useSelector(bookSelector(isbn));
 
   if (!book) return <div>Loading...</div>;
 
@@ -23,7 +26,6 @@ export const BookDetailScreen = () => {
       <Link to="/books">
         <span>⬅️ </span>Back to books
       </Link>
-      <img src={book.cover} alt={book.title} />
       <h2>{book.title}</h2>
       <h3>{book.subtitle}</h3>
       <div className="text-meta">by {book.author}</div>
